@@ -22,13 +22,13 @@ backend/coverage
 backend/.nyc_output
 
 # IDEs and editors
-backend/.idea
-backend/.project
-backend/.classpath
-backend/.c9/
-backend/*.launch
-backend/.settings/
-backend/*.sublime-workspace
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
 # IDE - VSCode
 backend/.vscode/*
