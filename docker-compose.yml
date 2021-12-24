@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgres-lesson-1
+    image: postgres:14.0-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - ${TYPEORM_PORT}:${TYPEORM_PORT}
+  backend:
+    container_name: backend-nest-lesson-1
+    build:
+      context: ./backend
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - '${API_PORT}:3001'
+    environment:
+      - API_PORT=${API_PORT}
+      - API_HOST=${API_HOST}
+      - TYPEORM_CONNECTION=${TYPEORM_CONNECTION}
+      - TYPEORM_USERNAME=${TYPEORM_USERNAME}
+      - TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
+      - TYPEORM_DATABASE=${TYPEORM_DATABASE}
+      - TYPEORM_PORT=${TYPEORM_PORT}
+      - TYPEORM_HOST=db
