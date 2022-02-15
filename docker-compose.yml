@@ -31,3 +31,13 @@ services:
       - TYPEORM_DATABASE=${TYPEORM_DATABASE}
       - TYPEORM_PORT=${TYPEORM_PORT}
       - TYPEORM_HOST=db
+  frontend:
+    container_name: frontend-angular-lesson-1
+    build:
+      context: ./frontend
+    depends_on:
+      - db
+      - backend
+    restart: unless-stopped
+    ports:
+      - '80:80'

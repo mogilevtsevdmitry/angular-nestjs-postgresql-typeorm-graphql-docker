@@ -1,0 +1,41 @@
+<div class="card p-2 card-width" *ngIf="user$ | async as user">
+  <ng-container *ngIf="user && !user.loading && !isChange">
+    <img [src]="imgSrc" alt="" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{ user.user.name }}</h5>
+      <p class="card-text">{{ user.user.email }}</p>
+      <div class="alert alert-warning">
+        <span class="text-mute">Создан: {{ user.user.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span><br/>
+        <span class="text-mute">Обновлено: {{ user.user.updatedAt | date: 'dd.MM.yyyy HH:mm' }}</span>
+      </div>
+      <div class="row">
+        <div class="col-6 text-center">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="change()"
+          ><app-icon icon="bi bi-pencil-square"></app-icon> Изменить</button>
+        </div>
+        <div class="col-6 text-center">
+          <button
+            class="btn btn-outline-danger"
+            (click)="delete(user.user.id)"
+          ><app-icon icon="bi bi-trash"></app-icon> Удалить</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="user.loading">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Загрузка...</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isChange">
+    <button class="btn btn-sm btn-outline-info" (click)="change()">
+      <app-icon icon="bi bi-arrow-left"></app-icon>
+      Назад
+    </button>
+    <app-user-form [user]="user.user" (onSubmit)="onSubmit($event)"></app-user-form>
+  </ng-container>
+</div>
