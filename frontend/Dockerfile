@@ -2,9 +2,9 @@
 FROM node:14-alpine AS build
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 COPY . .
-RUN npm run build
+RUN npm yarn build
 
 #STAGE 2
 FROM nginx:1.17.1-alpine
